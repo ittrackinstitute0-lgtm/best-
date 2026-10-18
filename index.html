@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Perfume of Pakistan | Luxury Artisan Fragrances & Attars</title>
+  
+  <!-- Favicon / Meta -->
+  <meta name="description" content="Discover the best perfumes of Pakistan. Handcrafted luxury fragrances, pure oud, oriental attars, and french designer perfumes with 12+ hours projection. Cash on Delivery nationwide.">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="header-top">
+    🇵🇰 <span>Best Perfume of Pakistan</span> &bull; Free Delivery Nationwide on Orders Above PKR 3,000 &bull; Cash on Delivery Available
+  </div>
+
+  <!-- Database Setup Notice (Dynamic) -->
+  <div id="schemaAlertBanner" style="display: none; background: #2c1a06; border-bottom: 1px solid #d4af37; padding: 10px 20px; text-align: center; font-size: 0.85rem; color: #f7e7a9;">
+    <i class="fa-solid fa-circle-info"></i> <strong>Supabase Setup Notice:</strong> 
+    Database table 'perfumes' is awaiting setup. You can run the SQL script in your Supabase SQL editor or manage items in local mode. 
+    <a href="admin.html#database" style="color: #ffffff; text-decoration: underline; margin-left: 8px; font-weight: 600;">Open Admin SQL Setup &rarr;</a>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div>
+          <div class="brand-title">Best Perfume of Pakistan</div>
+          <div class="brand-subtitle">Haute Parfumerie & Pure Attars</div>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#catalog" class="active">Collections</a></li>
+        <li><a href="#fragrance-notes">Scent Notes</a></li>
+        <li><a href="#why-us">Craftsmanship</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Admin Panel Link -->
+        <a href="admin.html" class="btn-admin" title="Open Admin Panel">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Admin Portal</span>
+        </a>
+
+        <!-- Cart Button -->
+        <button id="cartToggleBtn" class="cart-btn" aria-label="Open Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cartBadge" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container" style="position: relative; z-index: 2;">
+      <div class="hero-tag">
+        <i class="fa-solid fa-award"></i> Pakistan's Premier Fragrance House
+      </div>
+      <h1 class="hero-title">
+        The Essence of Elegance.<br>
+        <span class="gold-text">Best Perfume of Pakistan</span>
+      </h1>
+      <p class="hero-desc">
+        Mastercrafted Eau De Parfums and royal concentrated attars formulated with premium French essences, 
+        Cambodian oud, and velvety musk. Guaranteed 12+ hours projection in Pakistani climates.
+      </p>
+      <div class="hero-actions">
+        <a href="#catalog" class="btn-primary">
+          <i class="fa-solid fa-gem"></i> Explore Catalog
+        </a>
+        <a href="admin.html" class="btn-outline">
+          <i class="fa-solid fa-plus-circle"></i> Add Perfume in Admin
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Highlights -->
+  <section class="container">
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fa-solid fa-clock"></i></div>
+        <div>
+          <div class="trust-title">12+ Hours Lasting</div>
+          <div class="trust-sub">Concentrated oil formulations</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div>
+          <div class="trust-title">Cash on Delivery (COD)</div>
+          <div class="trust-sub">Karachi, Lahore, Islamabad & all Pakistan</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fa-solid fa-certificate"></i></div>
+        <div>
+          <div class="trust-title">100% Pure & Authentic</div>
+          <div class="trust-sub">Premium grade fragrance oils</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fa-solid fa-gift"></i></div>
+        <div>
+          <div class="trust-title">Luxury Presentation</div>
+          <div class="trust-sub">Royal bottles & gift boxing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section id="catalog" class="catalog-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-subtitle">Exquisite Creations</div>
+        <h2 class="section-title">Explore Fragrance Collections</h2>
+        <p class="section-desc">Select from rich Oriental ouds, invigorating fresh aquatics, and timeless royal musks.</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-wrapper">
+        <div class="category-tabs">
+          <button class="cat-tab active" data-category="All">All Scents</button>
+          <button class="cat-tab" data-category="Oud & Oriental">Oud & Oriental</button>
+          <button class="cat-tab" data-category="Woody & Spicy">Woody & Spicy</button>
+          <button class="cat-tab" data-category="Floral & Fresh">Floral & Fresh</button>
+          <button class="cat-tab" data-category="Luxury Attar">Luxury Attar</button>
+          <button class="cat-tab" data-category="Amber & Musk">Amber & Musk</button>
+          <button class="cat-tab" data-category="Citrus & Aquatic">Citrus & Aquatic</button>
+        </div>
+
+        <div class="filter-actions">
+          <div class="search-input-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search perfume name or note...">
+          </div>
+
+          <select id="genderFilter" class="gender-select" aria-label="Filter by gender">
+            <option value="All">All Genders</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+
+          <select id="sortFilter" class="sort-select" aria-label="Sort perfumes">
+            <option value="featured">Featured First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Name: A to Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic Products Grid -->
+      <div id="productsGrid" class="products-grid">
+        <!-- Injected dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Scent Pyramid / Fragrance Notes Guide -->
+  <section id="fragrance-notes" class="scent-guide">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-subtitle">Olfactory Art</div>
+        <h2 class="section-title">The Anatomy of a Luxury Perfume</h2>
+        <p class="section-desc">Every masterpiece perfume is composed of three harmonious layers.</p>
+      </div>
+
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="guide-icon"><i class="fa-solid fa-wind"></i></div>
+          <h3 class="guide-title">Top Notes (Opening)</h3>
+          <p class="guide-desc">The immediate initial impression upon spraying. Typically sparkling citrus, bergamot, fresh florals, or pink pepper lasting the first 15–30 minutes.</p>
+        </div>
+        <div class="guide-card">
+          <div class="guide-icon"><i class="fa-solid fa-heart"></i></div>
+          <h3 class="guide-title">Heart Notes (Body)</h3>
+          <p class="guide-desc">The core soul of the fragrance that emerges as top notes fade. Features rich Turkish rose, jasmine, cardamoms, cinnamon, and lavender for 3–5 hours.</p>
+        </div>
+        <div class="guide-card">
+          <div class="guide-icon"><i class="fa-solid fa-fire"></i></div>
+          <h3 class="guide-title">Base Notes (Dry Down)</h3>
+          <p class="guide-desc">The deepest, richest foundation that anchors the perfume. Includes smoky Agarwood (Oud), warm Amber, Sandalwood, and white musk lasting 12+ hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Best Perfume of Pakistan Section -->
+  <section id="why-us" class="container" style="padding: 70px 0;">
+    <div style="background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); padding: 50px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+      <div>
+        <div class="section-subtitle">Royal Heritage</div>
+        <h2 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 16px;">Crafted for Connoisseurs in Pakistan</h2>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
+          Best Perfume of Pakistan bridges traditional Eastern perfumery with modern French distillation techniques. 
+          Our perfumes are calibrated specifically for high projection and resilience against Pakistani humidity and warmth.
+        </p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; color: var(--gold-light); font-size: 0.95rem;">
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> Alcohol-free concentrated attars available</li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> Direct doorstep delivery across all 4 provinces</li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> Secure Cash on Delivery & WhatsApp tracking</li>
+        </ul>
+      </div>
+      <div style="position: relative; height: 340px; background: radial-gradient(circle, #252834 0%, #15171f 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+        <i class="fa-solid fa-crown fa-5x" style="color: var(--gold-primary); filter: drop-shadow(0 0 20px rgba(212,175,55,0.4));"></i>
+        <div style="position: absolute; bottom: 20px; font-family: var(--font-serif); font-size: 1.1rem; color: var(--gold-light); letter-spacing: 2px;">
+          BEST PERFUME OF PAKISTAN
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Drawer -->
+  <div id="cartOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-drawer-head">
+      <h3 class="cart-drawer-title">
+        <i class="fa-solid fa-bag-shopping"></i> Shopping Bag
+      </h3>
+      <button id="closeCartBtn" class="btn-close-drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div id="cartItemsList" class="cart-items-list">
+      <!-- Injected dynamically -->
+    </div>
+
+    <div class="cart-drawer-foot">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">PKR 0</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Nationwide Delivery</span>
+        <span id="cartShipping">FREE</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Total Payable</span>
+        <span id="cartGrandTotal">PKR 0</span>
+      </div>
+      <button id="checkoutBtn" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 15px;" onclick="openCheckout()">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div id="quickViewModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 680px;">
+      <div class="modal-head">
+        <h3 class="modal-title">Fragrance Profile</h3>
+        <button class="btn-close-drawer" onclick="closeQuickView()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="quickViewBody" class="modal-body">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3 class="modal-title"><i class="fa-solid fa-truck-ramp-box"></i> Order & Delivery Details</h3>
+        <button class="btn-close-drawer" onclick="closeCheckout()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label class="form-label" for="custName">Full Name *</label>
+            <input type="text" id="custName" class="form-control" placeholder="e.g. Muhammad Ali" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="custPhone">Phone / WhatsApp *</label>
+              <input type="tel" id="custPhone" class="form-control" placeholder="0300-1234567" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custCity">City *</label>
+              <select id="custCity" class="form-control" required>
+                <option value="">Select City</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Multan">Multan</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Other City">Other City (Pakistan)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="custAddress">Complete Street Address *</label>
+            <textarea id="custAddress" class="form-control" rows="2" placeholder="House #, Street, Area / Sector" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="custPayment">Payment Method</label>
+            <select id="custPayment" class="form-control">
+              <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+              <option value="JazzCash / Easypaisa">JazzCash / Easypaisa</option>
+              <option value="Bank Direct Transfer">Bank Direct Transfer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="custNotes">Special Delivery Notes (Optional)</label>
+            <input type="text" id="custNotes" class="form-control" placeholder="Any gift wrapping or landmark instruction">
+          </div>
+
+          <div style="background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm); margin: 20px 0; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.9rem; color: var(--text-secondary);">Total to pay on delivery:</span>
+            <span id="checkoutTotalDisplay" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-light);">PKR 0</span>
+          </div>
+
+          <button type="submit" id="placeOrderBtn" class="btn-primary" style="width: 100%; justify-content: center;">
+            Confirm & Place Order
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div id="orderSuccessModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 500px;">
+      <div id="orderSuccessDetails" class="modal-body">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-title" style="font-size: 1.2rem;">Best Perfume of Pakistan</div>
+          <p>The prestigious house of luxury oriental attars and long-lasting fine fragrances across Pakistan.</p>
+          <div style="margin-top: 16px; color: var(--gold-primary); font-size: 0.9rem;">
+            <i class="fa-solid fa-phone"></i> Helpline: +92 300 0000000
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="#catalog">Oud & Oriental</a></li>
+            <li><a href="#catalog">French Blends</a></li>
+            <li><a href="#catalog">Pure Attars</a></li>
+            <li><a href="#catalog">Amber & Musk</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="admin.html">Admin Dashboard</a></li>
+            <li><a href="#fragrance-notes">Scent Notes</a></li>
+            <li><a href="#why-us">Why Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pakistan Delivery</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
+            Dispatched via premier couriers (TCS / Leopards / Call Courier) directly to your doorstep with Cash on Delivery.
+          </p>
+          <div style="margin-top: 15px; display: flex; gap: 12px; font-size: 1.2rem; color: var(--gold-primary);">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Best Perfume of Pakistan. All Rights Reserved.</div>
+        <div>Crafted with Modern HTML, CSS & Supabase</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Supabase Official JS SDK CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Config & Unified Service -->
+  <script src="js/supabase-config.js"></script>
+
+  <!-- Storefront App JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>

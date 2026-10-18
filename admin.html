@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Best Perfume of Pakistan</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Admin CSS -->
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div>
+          <div class="brand-name">Best Perfume</div>
+          <div class="brand-tag">Pakistan &bull; Admin</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-item active" data-tab="dashboard">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-tab="perfumes">
+          <i class="fa-solid fa-spray-can-sparkles"></i>
+          <span>Perfumes Catalog</span>
+        </div>
+        <div class="nav-item" data-tab="orders">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Customer Orders</span>
+        </div>
+        <div class="nav-item" data-tab="database">
+          <i class="fa-solid fa-database"></i>
+          <span>Database &amp; SQL</span>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div id="supabaseStatusPill" class="supabase-status-pill">
+          <i class="fa-solid fa-spinner fa-spin"></i> Checking Supabase...
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <h1 id="pageTitle" class="page-title">Dashboard Overview</h1>
+        </div>
+        <div class="topbar-right">
+          <a href="index.html" class="btn-store-preview" target="_blank" title="Open Storefront in New Tab">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>View Storefront</span>
+          </a>
+          <button class="btn-primary-admin" onclick="openAddPerfumeModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Perfume</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Tab Panels -->
+      <div class="admin-content">
+
+        <!-- TAB 1: DASHBOARD OVERVIEW -->
+        <div id="panel-dashboard" class="tab-panel active">
+          <!-- Metric Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-info">
+                <div class="stat-label">Total Perfumes</div>
+                <div id="metricTotalPerfumes" class="stat-value">0</div>
+              </div>
+              <div class="stat-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <div class="stat-label">Featured Fragrances</div>
+                <div id="metricFeatured" class="stat-value">0</div>
+              </div>
+              <div class="stat-icon"><i class="fa-solid fa-crown"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <div class="stat-label">Low Stock (< 5)</div>
+                <div id="metricLowStock" class="stat-value">0</div>
+              </div>
+              <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <div class="stat-label">Orders Received</div>
+                <div id="metricTotalOrders" class="stat-value">0</div>
+              </div>
+              <div class="stat-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <div class="stat-label">Total Orders Value</div>
+                <div id="metricTotalRevenue" class="stat-value">PKR 0</div>
+              </div>
+              <div class="stat-icon"><i class="fa-solid fa-coins"></i></div>
+            </div>
+          </div>
+
+          <!-- Quick Tables Grid -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <!-- Recent Perfumes -->
+            <div class="data-card">
+              <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-gem"></i> Recent Fragrances</div>
+                <button class="btn-store-preview" onclick="document.querySelector('[data-tab=perfumes]').click()">View All</button>
+              </div>
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Perfume</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recentPerfumesList">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="data-card">
+              <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-bag-shopping"></i> Recent Orders</div>
+                <button class="btn-store-preview" onclick="document.querySelector('[data-tab=orders]').click()">View All</button>
+              </div>
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>City</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Contact</th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersList">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: PERFUMES INVENTORY MANAGEMENT -->
+        <div id="panel-perfumes" class="tab-panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Fragrance Inventory</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Manage your artisanal collections, prices in PKR, scent notes, and stock levels.</p>
+            </div>
+            <button class="btn-primary-admin" onclick="openAddPerfumeModal()">
+              <i class="fa-solid fa-plus"></i> Add New Perfume
+            </button>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="admin-toolbar">
+            <div class="search-box-admin">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="adminPerfumeSearch" placeholder="Search perfume by name or brand..." oninput="filterPerfumesAdmin()">
+            </div>
+
+            <div class="toolbar-filters">
+              <select id="adminCategoryFilter" class="select-admin" onchange="filterPerfumesAdmin()">
+                <option value="All">All Categories</option>
+                <option value="Oud & Oriental">Oud & Oriental</option>
+                <option value="Woody & Spicy">Woody & Spicy</option>
+                <option value="Floral & Fresh">Floral & Fresh</option>
+                <option value="Luxury Attar">Luxury Attar</option>
+                <option value="Amber & Musk">Amber & Musk</option>
+                <option value="Citrus & Aquatic">Citrus & Aquatic</option>
+              </select>
+
+              <select id="adminGenderFilter" class="select-admin" onchange="filterPerfumesAdmin()">
+                <option value="All">All Genders</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Unisex">Unisex</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="data-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Perfume Details</th>
+                  <th>Category</th>
+                  <th>Gender / Vol</th>
+                  <th>Price (PKR)</th>
+                  <th>Stock</th>
+                  <th>Featured</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="perfumesTableBody">
+                <!-- Injected via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 3: CUSTOMER ORDERS & INQUIRIES -->
+        <div id="panel-orders" class="tab-panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Customer Orders &amp; Dispatches</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Review orders placed on the website with direct WhatsApp customer chat integration.</p>
+            </div>
+            <button class="btn-store-preview" onclick="loadOrdersAdmin()">
+              <i class="fa-solid fa-rotate"></i> Refresh Orders
+            </button>
+          </div>
+
+          <div class="data-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Customer Info</th>
+                  <th>Phone / WhatsApp</th>
+                  <th>Destination (Pakistan)</th>
+                  <th>Fragrances Ordered</th>
+                  <th>Total Payable</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Injected via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 4: DATABASE & SQL SETTINGS -->
+        <div id="panel-database" class="tab-panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Supabase Backend &amp; Database Settings</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Verify project connection, API credentials, and run the SQL schema.</p>
+            </div>
+            <button class="btn-primary-admin" onclick="checkSupabaseStatus()">
+              <i class="fa-solid fa-plug"></i> Test Connection
+            </button>
+          </div>
+
+          <!-- Connection Overview -->
+          <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; margin-bottom: 24px;">
+            <h3 style="font-size: 1rem; margin-bottom: 14px; color: var(--gold-primary);">
+              <i class="fa-solid fa-link"></i> Active Supabase Configuration
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.85rem;">
+              <div>
+                <strong style="color: var(--text-muted); display: block; margin-bottom: 4px;">Supabase Project URL:</strong>
+                <code style="background: #060709; padding: 6px 10px; border-radius: 4px; display: block; color: #a7f3d0;">
+                  https://xlfkvgemkucqgztyoueb.supabase.co
+                </code>
+              </div>
+              <div>
+                <strong style="color: var(--text-muted); display: block; margin-bottom: 4px;">Project Reference / Publishable:</strong>
+                <code style="background: #060709; padding: 6px 10px; border-radius: 4px; display: block; color: #a7f3d0;">
+                  xlfkvgemkucqgztyoueb (sb_publishable_Fwj6LoMJJ6U0BMcYrcibYQ_wBlDWhq0)
+                </code>
+              </div>
+            </div>
+
+            <div id="dbTestResult" style="margin-top: 14px; font-size: 0.88rem;"></div>
+          </div>
+
+          <!-- SQL Schema Guide -->
+          <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <div>
+                <h3 style="font-size: 1rem; color: var(--gold-light);">
+                  <i class="fa-solid fa-terminal"></i> Ready-to-Run Supabase SQL Schema
+                </h3>
+                <p style="color: var(--text-muted); font-size: 0.82rem; margin-top: 4px;">
+                  Copy this SQL and paste into your <strong>Supabase Dashboard &rarr; SQL Editor &rarr; New Query &rarr; Click 'Run'</strong> to create <code>perfumes</code> and <code>orders</code> tables.
+                </p>
+              </div>
+              <button class="btn-primary-admin" onclick="copySqlSchema()">
+                <i class="fa-solid fa-copy"></i> Copy SQL Schema
+              </button>
+            </div>
+
+            <pre id="sqlSchemaCode" class="sql-code-box">-- ====================================================================
+-- BEST PERFUME OF PAKISTAN - SUPABASE DATABASE SCHEMA
+-- ====================================================================
+
+-- 1. Create Perfumes Table
+CREATE TABLE IF NOT EXISTS public.perfumes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    brand TEXT DEFAULT 'Best Perfume of Pakistan',
+    category TEXT NOT NULL,
+    gender TEXT DEFAULT 'Unisex',
+    price NUMERIC NOT NULL,
+    sale_price NUMERIC,
+    volume_ml INTEGER DEFAULT 50,
+    concentration TEXT DEFAULT 'Eau De Parfum',
+    top_notes TEXT,
+    heart_notes TEXT,
+    base_notes TEXT,
+    description TEXT,
+    image_url TEXT,
+    stock_quantity INTEGER DEFAULT 15,
+    is_featured BOOLEAN DEFAULT false,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 2. Create Orders Table
+CREATE TABLE IF NOT EXISTS public.orders (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_name TEXT NOT NULL,
+    customer_phone TEXT NOT NULL,
+    customer_email TEXT,
+    city TEXT NOT NULL,
+    address TEXT NOT NULL,
+    payment_method TEXT DEFAULT 'Cash on Delivery (COD)',
+    order_notes TEXT,
+    items JSONB NOT NULL,
+    total_amount NUMERIC NOT NULL,
+    status TEXT DEFAULT 'Pending',
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 3. Enable Row Level Security (RLS)
+ALTER TABLE public.perfumes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
+
+-- 4. Policies for Perfumes (Allow public CRUD)
+CREATE POLICY "Allow public read access on perfumes" ON public.perfumes FOR SELECT USING (true);
+CREATE POLICY "Allow anon insert access on perfumes" ON public.perfumes FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anon update access on perfumes" ON public.perfumes FOR UPDATE USING (true);
+CREATE POLICY "Allow anon delete access on perfumes" ON public.perfumes FOR DELETE USING (true);
+
+-- 5. Policies for Orders (Allow public placing and admin viewing)
+CREATE POLICY "Allow anon insert on orders" ON public.orders FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anon read on orders" ON public.orders FOR SELECT USING (true);
+CREATE POLICY "Allow anon update on orders" ON public.orders FOR UPDATE USING (true);
+CREATE POLICY "Allow anon delete on orders" ON public.orders FOR DELETE USING (true);</pre>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD / EDIT PERFUME MODAL -->
+  <div id="perfumeModal" class="admin-modal-overlay">
+    <div class="admin-modal-content">
+      <div class="modal-header">
+        <h3 id="perfumeModalTitle" class="modal-title">
+          <i class="fa-solid fa-plus-circle"></i> Add New Perfume
+        </h3>
+        <button class="modal-close" onclick="closePerfumeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="perfumeForm">
+          <input type="hidden" id="perfumeIdField">
+
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeName">Perfume Name *</label>
+              <input type="text" id="perfumeName" class="form-input-admin" placeholder="e.g. Sultan Al Oud, Velvet Rose" required>
+            </div>
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeBrand">Brand / Collection</label>
+              <input type="text" id="perfumeBrand" class="form-input-admin" value="Best Perfume of Pakistan" required>
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeCategory">Category *</label>
+              <select id="perfumeCategory" class="form-input-admin" required>
+                <option value="Oud & Oriental">Oud & Oriental</option>
+                <option value="Woody & Spicy">Woody & Spicy</option>
+                <option value="Floral & Fresh">Floral & Fresh</option>
+                <option value="Luxury Attar">Luxury Attar</option>
+                <option value="Amber & Musk">Amber & Musk</option>
+                <option value="Citrus & Aquatic">Citrus & Aquatic</option>
+              </select>
+            </div>
+
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeGender">Gender Target</label>
+              <select id="perfumeGender" class="form-input-admin">
+                <option value="Unisex">Unisex</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+              </select>
+            </div>
+
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeConcentration">Concentration</label>
+              <select id="perfumeConcentration" class="form-input-admin">
+                <option value="Eau De Parfum">Eau De Parfum (EDP)</option>
+                <option value="Extrait de Parfum">Extrait de Parfum</option>
+                <option value="Concentrated Oil (Attar)">Concentrated Oil (Attar)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumePrice">Regular Price (PKR) *</label>
+              <input type="number" id="perfumePrice" class="form-input-admin" placeholder="4500" required min="1">
+            </div>
+
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeSalePrice">Sale Price (PKR)</label>
+              <input type="number" id="perfumeSalePrice" class="form-input-admin" placeholder="3800 (Optional)">
+            </div>
+
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeVolume">Bottle Volume (ml)</label>
+              <input type="number" id="perfumeVolume" class="form-input-admin" value="50">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeStock">Stock Quantity</label>
+              <input type="number" id="perfumeStock" class="form-input-admin" value="15" min="0">
+            </div>
+
+            <div class="form-group-admin" style="display: flex; align-items: center; padding-top: 24px;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem;">
+                <input type="checkbox" id="perfumeFeatured" style="width: 18px; height: 18px; accent-color: var(--gold-primary);">
+                <span>Mark as Featured Fragrance</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Scent Notes -->
+          <div class="form-grid-3">
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeTopNotes">Top Notes</label>
+              <input type="text" id="perfumeTopNotes" class="form-input-admin" placeholder="e.g. Bergamot, Saffron">
+            </div>
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeHeartNotes">Heart Notes</label>
+              <input type="text" id="perfumeHeartNotes" class="form-input-admin" placeholder="e.g. Taif Rose, Cardamom">
+            </div>
+            <div class="form-group-admin">
+              <label class="form-label-admin" for="perfumeBaseNotes">Base Notes</label>
+              <input type="text" id="perfumeBaseNotes" class="form-input-admin" placeholder="e.g. Royal Oud, Amber, Musk">
+            </div>
+          </div>
+
+          <!-- Image Upload / URL -->
+          <div class="form-group-admin">
+            <label class="form-label-admin" for="perfumeImageUrl">Perfume Image</label>
+            <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+              <input type="url" id="perfumeImageUrl" class="form-input-admin" placeholder="Paste Image URL (or upload below)">
+            </div>
+            <input type="file" id="perfumeImageFile" accept="image/*" class="form-input-admin" style="padding: 6px;">
+            <div id="imagePreviewBox" class="image-preview-box">
+              <span style="color: var(--text-muted); font-size: 0.82rem;">Image preview will appear here</span>
+            </div>
+          </div>
+
+          <div class="form-group-admin">
+            <label class="form-label-admin" for="perfumeDescription">Description &amp; Story</label>
+            <textarea id="perfumeDescription" class="form-input-admin" rows="3" placeholder="Describe the soul, inspiration, and aroma of this luxury fragrance..."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+            <button type="button" class="btn-store-preview" onclick="closePerfumeModal()">Cancel</button>
+            <button type="submit" id="savePerfumeBtn" class="btn-primary-admin">
+              Save Fragrance
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="adminToastContainer" class="toast-container"></div>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Supabase Config & Unified Service -->
+  <script src="js/supabase-config.js"></script>
+
+  <!-- Admin JS -->
+  <script src="js/admin.js"></script>
+</body>
+</html>
